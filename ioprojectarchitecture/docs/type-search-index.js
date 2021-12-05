@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"pl.put.poznan.sortingmadness.logic","l":"SortingMadness"},{"p":"pl.put.poznan.sortingmadness.app","l":"SortingMadnessApplication"},{"p":"pl.put.poznan.sortingmadness.rest","l":"SortingMadnessController"}]
