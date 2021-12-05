@@ -25,5 +25,7 @@ jobs:
   generate-javadoc:
     runs-on: windows-latest
     steps:
+    - name: cd
+      run: cd ioprojectarchitecture
     - name: Generate javadoc
-      run: mvn javadoc:javadoc --file ioprojectarchitecture/pom.xml
+      run: mvn javadoc:javadoc
