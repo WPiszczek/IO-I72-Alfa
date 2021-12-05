@@ -34,4 +34,4 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Generate javadoc
-      run: mvn -f ioprojectarchitecture/pom.xml javadoc:javadoc
+      run: mvn -f ioprojectarchitecture/pom.xml javadoc:javadoc -d https://github.com/martynajedrzejczyk/IO-I72-Alfa/tree/main/javadoc
