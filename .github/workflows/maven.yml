@@ -27,7 +27,7 @@ jobs:
     - name: git add
       run: git add .
     - name: git name
-      run: git user.name WPiszczek
+      run: git config user.name WPiszczek
     - name: git commit
       run: git commit -m "javadoc"
     - name: git push
