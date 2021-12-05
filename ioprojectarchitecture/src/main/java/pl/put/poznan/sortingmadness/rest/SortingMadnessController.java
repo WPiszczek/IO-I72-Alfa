@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 
 
 /**
- * Rest controller
+ * Rest controller for Sorting Madness
  */
 @RestController
 @RequestMapping("/{method}/{array}")
