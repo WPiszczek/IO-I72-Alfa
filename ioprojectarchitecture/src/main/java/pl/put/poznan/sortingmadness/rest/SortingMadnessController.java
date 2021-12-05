@@ -18,6 +18,16 @@ public class SortingMadnessController {
 
     private static final Logger logger = LoggerFactory.getLogger(SortingMadnessController.class);
 
+    /**
+     *
+     * @param array
+     * @param method
+     * @return
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public Object[] get(@PathVariable Object[] array, @PathVariable String method) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
@@ -32,6 +42,16 @@ public class SortingMadnessController {
         return (Object[])m.invoke(sorter);
     }
 
+    /**
+     *
+     * @param array
+     * @param method
+     * @return
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public Object[] post(@PathVariable Object[] array, @PathVariable String method) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
