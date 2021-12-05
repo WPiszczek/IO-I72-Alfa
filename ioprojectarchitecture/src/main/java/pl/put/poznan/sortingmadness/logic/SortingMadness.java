@@ -15,15 +15,42 @@ public class SortingMadness {
 
     public Object[] exampleSort1(){
         java.util.Arrays.sort(this.array);
-//        return array;
-        String[] arr = {"metoda","1"};
-        return arr;
+        return array;
     }
 
     public Object[] exampleSort2(){
         java.util.Arrays.sort(this.array);
-        String[] arr = {"metoda","2"};
-        return arr;
+        return array;
+    }
+
+    public Object[] bubbleSort(){
+        //TO DO
+        return array;
+    }
+
+    public Object[] selectionSort(){
+        //TO DO
+        return array;
+    }
+
+    public Object[] insertionSort(){
+        //TO DO
+        return array;
+    }
+
+    public Object[] shellSort(){
+        //TO DO
+        return array;
+    }
+
+    public Object[] heapSort(){
+        //TO DO
+        return array;
+    }
+
+    public Object[] quickSort(){
+        //TO DO
+        return array;
     }
 
     public Object[] getArray() {
