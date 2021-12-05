@@ -26,6 +26,8 @@ jobs:
       run: mvn -f ioprojectarchitecture/pom.xml javadoc:javadoc
     - name: git add
       run: git add .
+    - name: git name
+      run: git user.name WPiszczek
     - name: git commit
       run: git commit -m "javadoc"
     - name: git push
