@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.lang.reflect.Method;
 
 
-
+/**
+ * Rest controller
+ */
 @RestController
 @RequestMapping("/{method}/{array}")
 public class SortingMadnessController {
