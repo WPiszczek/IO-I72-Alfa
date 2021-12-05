@@ -22,16 +22,12 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file ioprojectarchitecture/pom.xml
-      
-  generate-javadoc:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-        cache: maven
     - name: Generate javadoc
-      run: mvn -f ioprojectarchitecture/pom.xml javadoc:javadoc -d https://github.com/martynajedrzejczyk/IO-I72-Alfa/tree/main/javadoc
+      run: mvn -f ioprojectarchitecture/pom.xml javadoc:javadoc
+    - name: git add
+      run: git add .
+    - name: git commit
+      run: git commit -m "javadoc"
+    - name: git push
+      run: git push
+      
