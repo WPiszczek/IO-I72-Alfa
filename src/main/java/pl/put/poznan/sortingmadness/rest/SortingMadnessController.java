@@ -2,6 +2,7 @@ package pl.put.poznan.sortingmadness.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import pl.put.poznan.sortingmadness.logic.HeapSort;
 import pl.put.poznan.sortingmadness.logic.SortingMadness;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,9 +38,12 @@ public class SortingMadnessController {
         logger.debug(method);
 
         // running logic
-        SortingMadness sorter = new SortingMadness(array);
-        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
-        return (Object[])m.invoke(sorter);
+//        SortingMadness sorter = new SortingMadness(array);
+//        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
+//        return (Object[])m.invoke(sorter);
+
+        HeapSort sorter = new HeapSort(array);
+        return sorter.sort();
     }
 
     /**
@@ -61,9 +65,10 @@ public class SortingMadnessController {
         logger.debug(method);
 
         // running logic
-        SortingMadness sorter = new SortingMadness(array);
-        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
-        return (Object[])m.invoke(sorter);
+//        SortingMadness sorter = new SortingMadness(array);
+//        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
+//        return (Object[])m.invoke(sorter);
+        return new Object[]{};
     }
 }
 
