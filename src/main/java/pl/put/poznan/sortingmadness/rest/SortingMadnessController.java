@@ -37,6 +37,10 @@ public class SortingMadnessController {
         logger.debug("get");
         logger.debug(method);
 
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = Integer.parseInt(String.valueOf(array[i]));
+//        }
+
         // running logic
 //        SortingMadness sorter = new SortingMadness(array);
 //        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
