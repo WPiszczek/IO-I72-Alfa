@@ -2,8 +2,7 @@ package pl.put.poznan.sortingmadness.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.sortingmadness.logic.HeapSort;
-import pl.put.poznan.sortingmadness.logic.SortingMadness;
+import pl.put.poznan.sortingmadness.logic.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -46,7 +45,7 @@ public class SortingMadnessController {
 //        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
 //        return (Object[])m.invoke(sorter);
 
-        HeapSort sorter = new HeapSort(array);
+        InsertionSort sorter = new InsertionSort(array);
         return sorter.sort();
     }
 

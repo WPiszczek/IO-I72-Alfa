@@ -2,14 +2,6 @@ package pl.put.poznan.sortingmadness.logic;
 
 public class InsertionSort extends SortingMadness {
 
-    public InsertionSort(Object[] array) {
-        super(array);package pl.put.poznan.sortingmadness.logic;
-
-/**
- * InsertionSort class
- */
-public class InsertionSort extends SortingMadness {
-
     /**
      * InsertionSort class constructor
      * @param array array of type Object
@@ -42,12 +34,4 @@ public class InsertionSort extends SortingMadness {
     }
 }
 
-
-    }
-
-    @Override
-    public Object[] sort() {
-        return this.array;
-    }
-}
 
