@@ -45,7 +45,7 @@ public class SortingMadnessController {
 //        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
 //        return (Object[])m.invoke(sorter);
 
-        QuickSort sorter = new QuickSort(array);
+        BubbleSort sorter = new BubbleSort(array);
         return sorter.sort();
     }
 
