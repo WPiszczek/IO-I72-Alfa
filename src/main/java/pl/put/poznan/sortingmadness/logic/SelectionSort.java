@@ -18,7 +18,7 @@ public class SelectionSort extends SortingMadness {
      * @return array of type Object
      */
     @Override
-    public Object[] sort() {
+    public Object[] sort(boolean reverse) {
         Object[] array = this.array.clone();
 
         int n = array.length;

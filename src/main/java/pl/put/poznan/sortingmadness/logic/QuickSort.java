@@ -8,7 +8,7 @@ public class QuickSort extends SortingMadness {
 
 
     @Override
-    public Object[] sort() {
+    public Object[] sort(boolean reverse) {
         quickSort(this.array, 0, array.length - 1);
         return array;
     }

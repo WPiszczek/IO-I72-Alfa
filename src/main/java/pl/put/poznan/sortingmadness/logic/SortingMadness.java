@@ -10,17 +10,22 @@ public abstract class SortingMadness {
     protected Object[] array;
 
     /**
-     *
+     * class constructor
      * @param array
      */
     public SortingMadness(Object[] array){
         this.array = array;
     }
 
-    public abstract Object[] sort();
+    /**
+     * abstract method
+     * @param reverse - flag - true if user wants to sort descending
+     * @return sorted array of Objects
+     */
+    public abstract Object[] sort(boolean reverse);
 
     /**
-     *
+     * getter
      * @return
      */
     public Object[] getArray() {
@@ -28,7 +33,7 @@ public abstract class SortingMadness {
     }
 
     /**
-     *
+     * setter
      * @param array
      */
     public void setArray(Object[] array) {

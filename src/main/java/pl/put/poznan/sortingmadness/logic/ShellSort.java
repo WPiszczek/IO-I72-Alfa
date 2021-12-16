@@ -7,7 +7,7 @@ public class ShellSort extends SortingMadness {
     }
 
     @Override
-    public Object[] sort() {
+    public Object[] sort(boolean reverse) {
         Object[] array = this.array.clone();
         int n = array.length;
 
