@@ -15,7 +15,7 @@ public class HeapSort extends SortingMadness {
 
     /**
      * Sorting method
-     * @param reverse flag - true if user wants to sort descending
+     * @param reverse boolean - true if user wants to sort descending
      * @return array of type Object
      */
     @Override

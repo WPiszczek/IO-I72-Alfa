@@ -30,7 +30,7 @@ public abstract class SortingMadness {
      * @param reverse - flag - true if user wants to sort descending
      * @return sorted array of Objects
      */
-    public Object[] sortMeasurment(boolean reverse){
+    public Object[] sortMeasurement(boolean reverse){
         long start = System.nanoTime();
         Object[] ret = this.sort(reverse);
         this.time = System.nanoTime() - start;

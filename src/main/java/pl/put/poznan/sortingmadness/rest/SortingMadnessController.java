@@ -1,12 +1,11 @@
 package pl.put.poznan.sortingmadness.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.sortingmadness.logic.*;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 
@@ -41,21 +40,16 @@ public class SortingMadnessController {
 //            array[i] = Integer.parseInt(String.valueOf(array[i]));
 //        }
 
+
+
         // running logic
-//        SortingMadness sorter = new SortingMadness(array);
-//        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(method);
-//        return (Object[])m.invoke(sorter);
+        logger.debug("pl.put.poznan.sortingmadness.logic."+sortType);
 
-//        Class sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
-//        Object sorter = sortingClass.newInstance();
-//        logger.debug("pl.put.poznan.sortingmadness.logic."+sortType);
-//        SortingMadness sorter = sortingClass;
+        Class<?> sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
+        Constructor<?> ctor = sortingClass.getConstructor(Object[].class);
+        SortingMadness sorter = (SortingMadness) ctor.newInstance(new Object[] {array});
 
-//        Class sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
-//        SortingMadness sorter = (SortingMadness) sortingClass.newInstance();
-//        sorter.setArray(array);
-        BubbleSort sorter = new BubbleSort(array);
-        Object[] r = sorter.sortMeasurment(true);
+        Object[] r = sorter.sortMeasurement(true);
         System.out.println(sorter.getTime());
         return r;
     }
@@ -71,7 +65,7 @@ public class SortingMadnessController {
      * @throws IllegalAccessException
      */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public Object[] post(@PathVariable Object[] array, @PathVariable String sortType) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public Object[] post(@PathVariable Object[] array, @PathVariable String sortType) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
 
         // log the parameters
         logger.debug(Arrays.toString(array));
@@ -79,10 +73,15 @@ public class SortingMadnessController {
         logger.debug(sortType);
 
         // running logic
-//        SortingMadness sorter = new SortingMadness(array);
-//        Method m = Class.forName("pl.put.poznan.sortingmadness.logic.SortingMadness").getDeclaredMethod(class);
-//        return (Object[])m.invoke(sorter);
-        return new Object[]{};
+        logger.debug("pl.put.poznan.sortingmadness.logic."+sortType);
+
+        Class<?> sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
+        Constructor<?> ctor = sortingClass.getConstructor(Object[].class);
+        SortingMadness sorter = (SortingMadness) ctor.newInstance(new Object[] {array});
+
+        Object[] r = sorter.sortMeasurement(true);
+        System.out.println(sorter.getTime());
+        return r;
     }
 }
 
