@@ -16,6 +16,13 @@ public class InsertionSort extends SortingMadness {
      */
     @Override
     public Object[] sort(boolean reverse) {
+        if(reverse) return sort_reverse();
+        return sort_normal();
+    }
+    /**
+     * Helper procedure for sorting method
+     */
+    public Object[] sort_normal() {
         Object[] array = this.array.clone();
         int n = array.length;
 
@@ -25,6 +32,26 @@ public class InsertionSort extends SortingMadness {
 
             Comparable a = (Comparable) key;
             while (j >= 0 && a.compareTo(array[j]) < 0) {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            array[j + 1] = key;
+        }
+        return array;
+    }
+    /**
+     * Helper procedure for sorting method
+     */
+    public Object[] sort_reverse() {
+        Object[] array = this.array.clone();
+        int n = array.length;
+
+        for (int i = 1; i < n; ++i) {
+            Object key = array[i];
+            int j = i - 1;
+
+            Comparable a = (Comparable) key;
+            while (j >= 0 && a.compareTo(array[j]) > 0) {
                 array[j + 1] = array[j];
                 j = j - 1;
             }

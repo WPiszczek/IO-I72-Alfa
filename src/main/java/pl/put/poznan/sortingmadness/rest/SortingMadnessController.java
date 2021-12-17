@@ -54,8 +54,8 @@ public class SortingMadnessController {
 //        Class sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
 //        SortingMadness sorter = (SortingMadness) sortingClass.newInstance();
 //        sorter.setArray(array);
-        HeapSort sorter = new HeapSort(array);
-        return sorter.sort(false);
+        BubbleSort sorter = new BubbleSort(array);
+        return sorter.sort(true);
     }
 
     /**
