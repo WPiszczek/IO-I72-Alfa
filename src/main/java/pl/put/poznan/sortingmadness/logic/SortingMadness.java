@@ -8,6 +8,7 @@ import java.util.Arrays.*;
 public abstract class SortingMadness {
 
     protected Object[] array;
+    protected long time;
 
     /**
      * class constructor
@@ -23,6 +24,26 @@ public abstract class SortingMadness {
      * @return sorted array of Objects
      */
     public abstract Object[] sort(boolean reverse);
+
+    /**
+     * method to measure sorting time
+     * @param reverse - flag - true if user wants to sort descending
+     * @return sorted array of Objects
+     */
+    public Object[] sortMeasurment(boolean reverse){
+        long start = System.nanoTime();
+        Object[] ret = this.sort(reverse);
+        this.time = System.nanoTime() - start;
+        return ret;
+    }
+
+    /**
+     * getter
+     * @return
+     */
+    public long getTime() {
+        return time;
+    }
 
     /**
      * getter

@@ -55,7 +55,9 @@ public class SortingMadnessController {
 //        SortingMadness sorter = (SortingMadness) sortingClass.newInstance();
 //        sorter.setArray(array);
         BubbleSort sorter = new BubbleSort(array);
-        return sorter.sort(true);
+        Object[] r = sorter.sortMeasurment(true);
+        System.out.println(sorter.getTime());
+        return r;
     }
 
     /**
