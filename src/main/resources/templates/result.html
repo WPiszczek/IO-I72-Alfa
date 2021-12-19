@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Sorting Madness</title>
+</head>
+<body>
+
+<div class="header"><h1>Sorting Madness</h1></div>
+<div class="boxes">
+    <div class="box">
+        <form action="/result" method="post">
+            <input type="text" id="Array" name="Array" placeholder="Wpisz tablicę do posortowania">
+            <div class="reverse">
+                <input type="checkbox" id="Reverse" name="Reverse" value="1">
+                <label for="Reverse">Reverse</label>
+            </div>
+            <div class="sort-type-box">
+                <div>
+                    <input type="radio" id="BubbleSort" name="SortType" value="BubbleSort">
+                    <label for="BubbleSort">BubbleSort</label>
+                </div>
+                <div>
+                    <input type="radio" id="HeapSort" name="SortType" value="HeapSort">
+                    <label for="HeapSort">HeapSort</label>
+                </div>
+                <div>
+                    <input type="radio" id="InsertionSort" name="SortType" value="InsertionSort">
+                    <label for="InsertionSort">InsertionSort</label>
+                </div>
+                <div>
+                    <input type="radio" id="QuickSort" name="SortType" value="QuickSort">
+                    <label for="QuickSort">QuickSort</label>
+                </div>
+                <div>
+                    <input type="radio" id="SelectionSort" name="SortType" value="SelectionSort">
+                    <label for="SelectionSort">SelectionSort</label>
+                </div>
+                <div>
+                    <input type="radio" id="ShellSort" name="SortType" value="ShellSort">
+                    <label for="ShellSort">ShellSort</label>
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="box">
+        <p th:text="'Typ sortowania: ' + ${sortType}"></p>
+        <p th:text="'Sortowanie malejące: ' + ${reverse}"></p>
+        <p th:text="'Posortowana tablica: ' + ${array}"></p>
+    </div>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>
