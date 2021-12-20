@@ -1,7 +1,6 @@
 package pl.put.poznan.sortingmadness.logic;
-
 /**
- * SelectionSort class
+ * SelectionSort class - implements SelectionSort
  */
 public class SelectionSort extends SortingMadness {
 
@@ -15,6 +14,7 @@ public class SelectionSort extends SortingMadness {
 
     /**
      * Sorting method
+     * @param reverse - flag - true if user wants to sort descending
      * @return array of type Object
      */
     @Override
@@ -23,7 +23,8 @@ public class SelectionSort extends SortingMadness {
         return sort_reverse();
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in not reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_normal() {
         Object[] array = this.array.clone();
@@ -48,7 +49,8 @@ public class SelectionSort extends SortingMadness {
         return array;
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_reverse() {
         Object[] array = this.array.clone();

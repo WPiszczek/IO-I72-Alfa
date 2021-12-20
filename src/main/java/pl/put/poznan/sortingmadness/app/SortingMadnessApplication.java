@@ -6,12 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Application Class
+ * - runs SpringApplication
  */
 @SpringBootApplication(scanBasePackages = {"pl.put.poznan.sortingmadness.rest"})
 public class SortingMadnessApplication {
 
     /**
-     *
+     * Main function
      * @param args
      */
     public static void main(String[] args) {

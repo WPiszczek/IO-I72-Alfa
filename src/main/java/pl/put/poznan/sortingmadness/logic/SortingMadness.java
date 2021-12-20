@@ -12,7 +12,7 @@ public abstract class SortingMadness {
 
     /**
      * class constructor
-     * @param array
+     * @param array - the array passed to sort
      */
     public SortingMadness(Object[] array){
         this.array = array;
@@ -39,7 +39,7 @@ public abstract class SortingMadness {
 
     /**
      * getter
-     * @return
+     * @return measured time of sorting
      */
     public long getTime() {
         return time;
@@ -47,7 +47,7 @@ public abstract class SortingMadness {
 
     /**
      * getter
-     * @return
+     * @return array of Objects
      */
     public Object[] getArray() {
         return array;
@@ -55,7 +55,7 @@ public abstract class SortingMadness {
 
     /**
      * setter
-     * @param array
+     * @param array - sets array of Objects
      */
     public void setArray(Object[] array) {
         this.array = array;

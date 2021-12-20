@@ -1,10 +1,12 @@
 package pl.put.poznan.sortingmadness.logic;
-
+/**
+ * ShellSort class - implements ShellSort
+ */
 public class ShellSort extends SortingMadness {
 
     /**
      * ShellSort class constructor
-     * @param array array of type Object
+     * @param array - the array of type Object
      */
     public ShellSort(Object[] array) {
         super(array);
@@ -12,6 +14,7 @@ public class ShellSort extends SortingMadness {
 
     /**
      * Sorting method
+     * @param reverse - flag - true if user wants to sort descending
      * @return array of type Object
      */
     @Override
@@ -21,7 +24,8 @@ public class ShellSort extends SortingMadness {
 
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in not reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_normal() {
         Object[] array = this.array.clone();
@@ -42,7 +46,8 @@ public class ShellSort extends SortingMadness {
         return array;
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_reverse() {
         Object[] array = this.array.clone();

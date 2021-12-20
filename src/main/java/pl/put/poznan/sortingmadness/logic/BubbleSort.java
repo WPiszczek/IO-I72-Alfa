@@ -1,18 +1,30 @@
 package pl.put.poznan.sortingmadness.logic;
-
+/**
+ * BubbleSort class - implements BubbleSort
+ */
 public class BubbleSort extends SortingMadness {
 
+    /**
+     * BubbleSort class constructor
+     * @param array - the array passed to sort
+     */
     public BubbleSort(Object[] array) {
         super(array);
     }
 
+    /**
+     * Sorting method
+     * @param reverse - flag - true if user wants to sort descending
+     * @return array of type Object
+     */
     @Override
     public Object[] sort(boolean reverse) {
         if(reverse) return sort_reverse();
         else return sort_normal();
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in not reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_normal() {
         Object[] array = this.array.clone();
@@ -35,7 +47,8 @@ public class BubbleSort extends SortingMadness {
         return array;
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in reversed sorting
+     * @return array of type Object
      */
     public Object[] sort_reverse() {
         Object[] array = this.array.clone();
@@ -58,9 +71,3 @@ public class BubbleSort extends SortingMadness {
         return array;
     }
 }
-
-
-
-
-
-

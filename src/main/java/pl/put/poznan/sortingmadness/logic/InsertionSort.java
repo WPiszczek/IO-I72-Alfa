@@ -1,5 +1,7 @@
 package pl.put.poznan.sortingmadness.logic;
-
+/**
+ * InsertionSort class - implements InsertionSort
+ */
 public class InsertionSort extends SortingMadness {
 
     /**
@@ -21,6 +23,7 @@ public class InsertionSort extends SortingMadness {
     }
     /**
      * Helper procedure for sorting method
+     * @return array of type Object
      */
     public Object[] sort_normal() {
         Object[] array = this.array.clone();
@@ -41,6 +44,7 @@ public class InsertionSort extends SortingMadness {
     }
     /**
      * Helper procedure for sorting method
+     * @return array of type Object
      */
     public Object[] sort_reverse() {
         Object[] array = this.array.clone();

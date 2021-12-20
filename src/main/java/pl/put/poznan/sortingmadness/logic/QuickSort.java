@@ -1,12 +1,21 @@
 package pl.put.poznan.sortingmadness.logic;
-
+/**
+ * QuickSort class - implements QuickSort
+ */
 public class QuickSort extends SortingMadness {
-
+    /**
+     * QuickSort class constructor
+     * @param array - the array passed to sort
+     */
     public QuickSort(Object[] array) {
         super(array);
     }
 
-
+    /**
+     * Sorting method
+     * @param reverse - flag - true if user wants to sort descending
+     * @return array of type Object
+     */
     @Override
     public Object[] sort(boolean reverse) {
         if(!reverse) quickSort(this.array, 0, array.length - 1);
@@ -14,7 +23,10 @@ public class QuickSort extends SortingMadness {
         return array;
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in not reversed sorting
+     * @param array - array passed to be sorted
+     * @param begin - index of first element to be sorted
+     * @param end - index of last element to be sorted
      */
     public void quickSort(Object[] array, int begin, int end) {
         if (end <= begin) return;
@@ -23,7 +35,9 @@ public class QuickSort extends SortingMadness {
         quickSort(array, pivot+1, end);
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for sorting method used in not reversed sorting
+     * @param begin - index of first element to compare
+     * @param end - index of last element to compare
      */
     int partition(int begin, int end) {
         int pivot = end;
@@ -47,7 +61,10 @@ public class QuickSort extends SortingMadness {
 
 
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for reversed sorting method
+     * @param array - array passed to be sorted
+     * @param begin - index of first element to be sorted
+     * @param end - index of last element to be sorted
      */
     public void quickSort_reverse(Object[] array, int begin, int end) {
         if (end <= begin) return;
@@ -56,7 +73,9 @@ public class QuickSort extends SortingMadness {
         quickSort_reverse(array, pivot+1, end);
     }
     /**
-     * Helper procedure for sorting method
+     * Helper procedure for reversed sorting method
+     * @param begin - index of first element to compare
+     * @param end - index of last element to compare
      */
     int partition_reverse(int begin, int end) {
         int pivot = end;

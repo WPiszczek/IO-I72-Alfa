@@ -1,7 +1,7 @@
 package pl.put.poznan.sortingmadness.logic;
 
 /**
- * HeapSort class
+ * HeapSort class - implements HeapSort
  */
 public class HeapSort extends SortingMadness {
 
@@ -90,7 +90,7 @@ public class HeapSort extends SortingMadness {
     }
 
     /**
-     * Helper procedure for reverse sorting method
+     * Helper procedure for reversed sorting method
      * @param array array of type Object
      * @param n size of the heap
      * @param i index of the starting element of a tree
