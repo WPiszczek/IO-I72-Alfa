@@ -12,7 +12,8 @@
 <div class="boxes">
     <div class="box">
     <form id="form" action="/result" method="post">
-        <input type="text" name="Array" id="Array" placeholder="Wpisz tablicę do posortowania w formacie JSON">
+        <textarea name="Array" id="Array" rows="40" placeholder="Wpisz tablicę do posortowania w formacie JSON"></textarea>
+        <input type="text" id="SortAttrib" name="SortAttrib" placeholder="Wpisz własność obiektu według której chcesz sortować">
         <div class="reverse">
             <input type="checkbox" id="Reverse" name="Reverse" value="1">
             <label for="Reverse">Reverse</label>

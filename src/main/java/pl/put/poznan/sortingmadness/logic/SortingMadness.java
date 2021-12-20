@@ -7,7 +7,13 @@ import java.util.Arrays.*;
  */
 public abstract class SortingMadness {
 
+    /**
+     * array to sort
+     */
     protected Object[] array;
+    /**
+     * variable for time measurement
+     */
     protected long time;
 
     /**

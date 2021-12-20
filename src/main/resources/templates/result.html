@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +8,12 @@
     <title>Sorting Madness</title>
 </head>
 <body>
-
 <div class="header"><h1>Sorting Madness</h1></div>
 <div class="boxes">
     <div class="box">
-        <form action="/result" method="post">
-            <input type="text" id="Array" name="Array" placeholder="Wpisz tablicę do posortowania">
+        <form id="form" action="/result" method="post">
+            <textarea name="Array" id="Array" rows="40" placeholder="Wpisz tablicę do posortowania w formacie JSON"></textarea>
+            <input type="text" id="SortAttrib" name="SortAttrib" placeholder="Wpisz własność obiektu według której chcesz sortować">
             <div class="reverse">
                 <input type="checkbox" id="Reverse" name="Reverse" value="1">
                 <label for="Reverse">Reverse</label>
@@ -44,15 +44,13 @@
                     <label for="ShellSort">ShellSort</label>
                 </div>
                 <div>
-                    <input type="submit" name="submit" value="submit">
+                    <input id="submit" type="submit" name="submit" value="submit">
                 </div>
             </div>
         </form>
     </div>
     <div class="box">
-        <p th:text="'Typ sortowania: ' + ${sortType}"></p>
-        <p th:text="'Sortowanie malejące: ' + ${reverse}"></p>
-        <p th:text="'Posortowana tablica: ' + ${array}"></p>
+        <p id="output"></p>
     </div>
 </div>
 <script src="/js/script.js"></script>
