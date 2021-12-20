@@ -26,16 +26,6 @@ public class CustomObject implements Comparable {
     public CustomObject() {}
 
     /**
-     * Function for getting sorting attribute value from JSON string
-     * @return
-     * @throws JSONException
-     */
-    public Comparable getAttribValueFromJSON() throws JSONException {
-        JSONObject jsonObject = new JSONObject(this.JSONString);
-        return (Comparable) jsonObject.get(sortAttrib);
-    }
-
-    /**
      * Function to compare object with another
      * @param o object to compare with
      * @return negative number if object is lesser than another, positive if greater, 0 if equal
@@ -88,10 +78,9 @@ public class CustomObject implements Comparable {
 
     /**
      * setter
-     * @throws JSONException
      */
-    public void setSortAttribValue() throws JSONException {
-        this.sortAttribValue = getAttribValueFromJSON();
+    public void setSortAttribValue(Comparable sortAttribValue) {
+        this.sortAttribValue = sortAttribValue;
     }
 
     /**

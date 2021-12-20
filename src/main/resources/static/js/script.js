@@ -30,26 +30,27 @@ async function onSubmit(e){
             return;
         }
 
+        console.log(sortAttrib);
         if (sortAttrib === "Number") {
-            for (var k of Object.keys(json)) {
-                console.log(json[k]);
-                if (!json[k] instanceof Number) {
+            for (const k of json) {
+                console.log(k);
+                if (!(typeof k === "number")) {
                     alert("Nie wszystkie obiekty w tablicy są typu liczbowego");
                     return;
                 }
             }
         } else if (sortAttrib === "String") {
-            for (var k of Object.keys(json)) {
-                console.log(json[k]);
-                if (!json[k] instanceof String) {
+            for (const k of json) {
+                console.log(k);
+                if (!(typeof k === "string")) {
                     alert("Nie wszystkie obiekty w tablicy są typu String");
                     return;
                 }
             }
         } else {
-            for (var k of Object.keys(json)) {
-                console.log(json[k]);
-                if (!json[k].hasOwnProperty(sortAttrib)) {
+            for (const k of json) {
+                console.log(k);
+                if (!k.hasOwnProperty(sortAttrib)) {
                     alert("Wybrany atrybut sortowania nie występuje we wszystkich obiektach");
                     return;
                 }
@@ -67,14 +68,30 @@ async function onSubmit(e){
         "Array": json,
         "SortAttrib": sortAttrib
     };
-    const result = await fetch("/result", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postData)
+    try {
+        const result = await fetch("/result", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+        const responseJSON = await result.json();
+        console.log(responseJSON);
+        renderResult(responseJSON['ResultArray'], responseJSON['Time']);
+    } catch (e) {
+        alert("Wystąpił błąd");
+        return;
+    }
+
+}
+
+function renderResult(resultArray, time) {
+    const b = resultArray.map(e => {
+        if (typeof e === "object") return e.jsonstring;
+        return e;
     })
-    console.log(result);
+    output.innerHTML = `<p>${JSON.stringify(b).replaceAll('"',"").replaceAll('=',':')}</p><p>${time/1000} μs</p>`;
 }
 
 // from https://jsfiddle.net/2wAzx/13/

@@ -1,18 +1,14 @@
 package pl.put.poznan.sortingmadness.rest;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.sortingmadness.logic.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -45,10 +41,10 @@ public class SortingMadnessController {
      * @throws InvocationTargetException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws JSONException
      */
-    @RequestMapping(value="/result", method=RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public String result(@RequestBody Map<String, Object> payload) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, JSONException {
+    @PostMapping(value="/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String,Object> result(@RequestBody Map<String, Object> payload) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
         String sortType = (String) payload.get("SortType");
         boolean reverse = (boolean) payload.get("Reverse");
@@ -57,23 +53,35 @@ public class SortingMadnessController {
 
         Object[] array;
 
-        if (!sortAttrib.equals("Number") && !sortAttrib.equals("String")) {
+        if (sortAttrib.equals("Number")) {
+            ArrayList<Double> arr = new ArrayList<>();
+            for (Object obj : JSONarray) {
+                arr.add(Double.valueOf(String.valueOf(obj)));
+            }
+            array = arr.toArray(new Double[]{});
+
+        } else if (sortAttrib.equals("String")) {
+            array = JSONarray;
+        } else {
             ArrayList<CustomObject> arr = new ArrayList<>();
 
             for (Object obj : JSONarray) {
+                LinkedHashMap map = (LinkedHashMap) obj;
                 System.out.println(obj);
                 System.out.println(obj.getClass());
                 CustomObject cusObj = new CustomObject();
+
+                Object sortAttribValue = map.get(sortAttrib);
+                System.out.println(sortAttribValue);
+
                 cusObj.setJSONString(obj.toString());
                 cusObj.setSortAttrib(sortAttrib);
-                cusObj.setSortAttribValue();
+                cusObj.setSortAttribValue((Comparable) sortAttribValue);
                 System.out.println(cusObj);
                 arr.add(cusObj);
             }
 
             array = arr.toArray(new CustomObject[]{});
-        } else {
-            array = JSONarray;
         }
 
 
@@ -93,11 +101,16 @@ public class SortingMadnessController {
         SortingMadness sorter = (SortingMadness) ctor.newInstance(new Object[] {array});
 
         Object[] r = sorter.sortMeasurement(reverse);
+        Long t = sorter.getTime();
 
         System.out.println(Arrays.toString(r));
         System.out.println(sorter.getTime());
 
-        return "result";
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("ResultArray", r);
+        map.put("Time", t);
+
+        return map;
     }
 
 }
