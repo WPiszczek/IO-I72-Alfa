@@ -13,7 +13,6 @@ public class SortingMadnessApplication {
 
     /**
      * Main function
-     * @param args
      */
     public static void main(String[] args) {
         SpringApplication.run(SortingMadnessApplication.class, args);
