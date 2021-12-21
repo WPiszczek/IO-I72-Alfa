@@ -81,17 +81,18 @@ async function onSubmit(e){
         renderResult(responseJSON['ResultArray'], responseJSON['Time']);
     } catch (e) {
         alert("Wystąpił błąd");
-        return;
     }
 
 }
 
 function renderResult(resultArray, time) {
-    const b = resultArray.map(e => {
+    let b = resultArray.map(e => {
         if (typeof e === "object") return e.jsonstring;
         return e;
     })
-    output.innerHTML = `<p>${JSON.stringify(b).replaceAll('"',"").replaceAll('=',':')}</p><p>${time/1000} μs</p>`;
+
+    console.log(b);
+    output.innerHTML = `<p>[${b}]</p><p>${time/1000} μs</p>`;
 }
 
 // from https://jsfiddle.net/2wAzx/13/
@@ -113,7 +114,6 @@ function enableTab(id) {
 
             // prevent the focus lose
             return false;
-
         }
     };
 }

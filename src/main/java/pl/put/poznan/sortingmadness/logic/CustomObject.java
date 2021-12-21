@@ -1,8 +1,5 @@
 package pl.put.poznan.sortingmadness.logic;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Class for keeping custom objects from JSON
  */
@@ -35,6 +32,8 @@ public class CustomObject implements Comparable {
         CustomObject comp = (CustomObject) o;
         return this.sortAttribValue.compareTo(comp.getSortAttribValue());
     }
+
+
 
     /**
      * getter

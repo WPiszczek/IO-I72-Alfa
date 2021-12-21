@@ -1,4 +1,6 @@
 package pl.put.poznan.sortingmadness.rest;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -74,7 +76,9 @@ public class SortingMadnessController {
                 Object sortAttribValue = map.get(sortAttrib);
                 System.out.println(sortAttribValue);
 
-                cusObj.setJSONString(obj.toString());
+                String jsonString = new JSONObject(map).toString();
+                cusObj.setJSONString(jsonString);
+//                cusObj.setJSONString(obj.toString());
                 cusObj.setSortAttrib(sortAttrib);
                 cusObj.setSortAttribValue((Comparable) sortAttribValue);
                 System.out.println(cusObj);
@@ -103,13 +107,17 @@ public class SortingMadnessController {
         Object[] r = sorter.sortMeasurement(reverse);
         Long t = sorter.getTime();
 
+        for (Object o : r) {
+            CustomObject co = (CustomObject) o;
+            System.out.println(co.getJSONString());
+        }
+//        System.out.println(r.getClass());
         System.out.println(Arrays.toString(r));
         System.out.println(sorter.getTime());
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("ResultArray", r);
         map.put("Time", t);
-
         return map;
     }
 
