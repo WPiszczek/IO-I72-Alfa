@@ -7,4 +7,4 @@ Link do dokumentacji
 https://martynajedrzejczyk.github.io/IO-I72-Alfa/index.html
 
 Diagram UML:  
-![This is an image](/diagram_UML.PNG)
+![This is an image!](/diagram_UML.PNG)
