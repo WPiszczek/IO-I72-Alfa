@@ -107,10 +107,6 @@ public class SortingMadnessController {
         Object[] r = sorter.sortMeasurement(reverse);
         Long t = sorter.getTime();
 
-        for (Object o : r) {
-            CustomObject co = (CustomObject) o;
-            System.out.println(co.getJSONString());
-        }
 //        System.out.println(r.getClass());
         System.out.println(Arrays.toString(r));
         System.out.println(sorter.getTime());
