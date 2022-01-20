@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Application Class
  * - runs SpringApplication
  */
-@SpringBootApplication(scanBasePackages = {"pl.put.poznan.sortingmadness.rest"})
+@SpringBootApplication(scanBasePackages = {"pl.put.poznan.sortingmadness.rest", "pl.put.poznan.sortingmadness.service"})
 public class SortingMadnessApplication {
 
     /**

@@ -17,6 +17,11 @@ public abstract class SortingMadness {
     protected long time;
 
     /**
+     * default constructor
+     */
+    public SortingMadness(){}
+
+    /**
      * class constructor
      * @param array - the array passed to sort
      */

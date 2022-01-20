@@ -1,120 +1,59 @@
 package pl.put.poznan.sortingmadness.rest;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.sortingmadness.logic.*;
+import pl.put.poznan.sortingmadness.service.SortingMadnessService;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 
 /**
  * Rest controller for Sorting Madness
  */
-@Controller
+@RestController
 public class SortingMadnessController {
 
     /**
      * Logger field
      */
     private static final Logger logger = LoggerFactory.getLogger(SortingMadnessController.class);
+    private final SortingMadnessService service;
+    LinkedHashMap<String, Object> response;
 
-    /**
-     * default site, opened for path "/"
-     * @return html filename
-     */
-    @GetMapping("/")
+
+    @Autowired
+    public SortingMadnessController(SortingMadnessService service) {
+        this.service = service;
+        logger.debug("SortingMadnessController Constructor");
+    }
+
+
+    @GetMapping({"/", "/index"})
     public String index() {
-        logger.debug("index");
+        logger.debug("GET /index");
         return "index";
     }
 
-    /**
-     * Function for getting data and sorting
-     * @param payload - data send from javascript
-     * @return
-     * @throws ClassNotFoundException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    @PostMapping(value="/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Map<String,Object> result(@RequestBody Map<String, Object> payload) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        String sortType = (String) payload.get("SortType");
-        boolean reverse = (boolean) payload.get("Reverse");
-        Object[] JSONarray = ((ArrayList<?>) payload.get("Array")).toArray(new Object[]{});
-        String sortAttrib = (String) payload.get("SortAttrib");
-
-        Object[] array;
-
-        if (sortAttrib.equals("Number")) {
-            ArrayList<Double> arr = new ArrayList<>();
-            for (Object obj : JSONarray) {
-                arr.add(Double.valueOf(String.valueOf(obj)));
-            }
-            array = arr.toArray(new Double[]{});
-
-        } else if (sortAttrib.equals("String")) {
-            array = JSONarray;
-        } else {
-            ArrayList<CustomObject> arr = new ArrayList<>();
-
-            for (Object obj : JSONarray) {
-                LinkedHashMap map = (LinkedHashMap) obj;
-                System.out.println(obj);
-                System.out.println(obj.getClass());
-                CustomObject cusObj = new CustomObject();
-
-                Object sortAttribValue = map.get(sortAttrib);
-                System.out.println(sortAttribValue);
-
-                String jsonString = new JSONObject(map).toString();
-                cusObj.setJSONString(jsonString);
-//                cusObj.setJSONString(obj.toString());
-                cusObj.setSortAttrib(sortAttrib);
-                cusObj.setSortAttribValue((Comparable) sortAttribValue);
-                System.out.println(cusObj);
-                arr.add(cusObj);
-            }
-
-            array = arr.toArray(new CustomObject[]{});
-        }
+    @PostMapping("/inputData/{dataType}")
+    public String
+    postInputData(@PathVariable String dataType,
+            @RequestBody LinkedHashMap<String, Object> body) {
+        logger.debug("POST /inputData/" + dataType);
+        service.handleInput(body);
+        return "input";
+    }
 
 
-        // log the parameters
-        logger.debug("POST");
-        logger.debug(sortType);
-        logger.debug(String.valueOf(reverse));
-        logger.debug(Arrays.toString(array));
-        logger.debug(sortAttrib);
+    @GetMapping("/result/{dataType}/{sortType}")
+    public LinkedHashMap<String, Object>
+    result(@PathVariable("dataType") String dataType,
+           @PathVariable("sortType") String sortType) {
+        logger.debug(String.format("GET result/%s/%s", dataType, sortType));
 
-
-        // running logic
-        logger.debug("pl.put.poznan.sortingmadness.logic."+sortType);
-
-        Class<?> sortingClass = Class.forName("pl.put.poznan.sortingmadness.logic." + sortType);
-        Constructor<?> ctor = sortingClass.getConstructor(Object[].class);
-        SortingMadness sorter = (SortingMadness) ctor.newInstance(new Object[] {array});
-
-        Object[] r = sorter.sortMeasurement(reverse);
-        Long t = sorter.getTime();
-
-//        System.out.println(r.getClass());
-        System.out.println(Arrays.toString(r));
-        System.out.println(sorter.getTime());
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("ResultArray", r);
-        map.put("Time", t);
-        return map;
+        response = service.getResult();
+        return response;
     }
 
 }
