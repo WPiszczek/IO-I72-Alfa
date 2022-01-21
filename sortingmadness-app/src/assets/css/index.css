@@ -1,0 +1,86 @@
+body{
+  background-color: #eee;
+  font-family: 'Roboto Slab';
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info{
+  display: flex;
+  width: 100%;
+  margin-top: 7.5%;
+
+  font-size: 36px;
+}
+
+header{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.yourChoice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.inputTable{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.myButton{
+  padding: 0 !important;
+  margin: 5px;
+  text-align: center;
+  width: 250px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.myButton:hover{
+  background-color: #dddddd;
+  box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.yourSpaces{
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 8%;
+}
+
+.inputSortData{
+  width: 40%;
+  height: 200px;
+}
+
+.showArray{
+  max-height: 350px;
+  overflow-y: scroll;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons{
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.center{
+  text-align: center;
+}
+
+.error{
+  color: #ff0000;
+}

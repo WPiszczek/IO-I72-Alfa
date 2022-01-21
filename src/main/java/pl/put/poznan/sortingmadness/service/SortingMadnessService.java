@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.put.poznan.sortingmadness.logic.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Random;
 import org.json.JSONObject;
@@ -12,11 +13,11 @@ import org.json.JSONObject;
 @Service
 public class SortingMadnessService {
     private SortingMadness sorter;
+    private Object[] unsortedArray;
+    private Object[] sortedArray;
 
 
     public void handleInput(LinkedHashMap<String, Object> input) {
-        String sortType = (String) input.get("sortType");
-        boolean reverse = (boolean) input.get("reverse");
         String dataType = (String) input.get("dataType");
 
         Object[] array;
@@ -37,23 +38,49 @@ public class SortingMadnessService {
                 array = getRandomArray(size);
                 break;
             case "JSON":
+            case "File":
                 String sortAttrib = (String) input.get("sortAttrib");
                 array = convertArrayToJSON(array, sortAttrib);
                 break;
         }
 
-        setSorter(sortType, array);
+        sorter = new SortingMadness() {
+            @Override
+            public Object[] sort(boolean reverse) {
+                return new Object[0];
+            }
+        };
+
+        setUnsortedArray(array);
+        System.out.println(Arrays.toString(getUnsortedArray()));
+    }
+
+
+    public void handleSortType(LinkedHashMap<String, Object> input) {
+        String sortType = (String) input.get("sortType");
+        boolean reverse = (boolean) input.get("reverse");
+
+        setSorter(sortType, getUnsortedArray());
         Object[] sortedArray = sorter.sortMeasurement(reverse);
-        sorter.setArray(sortedArray);
+        setSortedArray(sortedArray);
+    }
+
+
+    public LinkedHashMap<String, Object> generateRandomArray(LinkedHashMap<String, Object> input) {
+        int arraySize = Integer.parseInt((String) input.get("arraySize"));
+        Integer[] array = getRandomArray(arraySize);
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        setUnsortedArray(array);
+        result.put("array", array);
+        return result;
     }
 
 
     public LinkedHashMap<String, Object> getResult() {
-        Object[] array = sorter.getArray();
         Long time = sorter.getTime();
 
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        result.put("sortedArray", array);
+        result.put("sortedArray", getSortedArray());
         result.put("time", time);
 
         return result;
@@ -131,4 +158,19 @@ public class SortingMadnessService {
         return this.sorter;
     }
 
+    public Object[] getUnsortedArray() {
+        return unsortedArray;
+    }
+
+    public void setUnsortedArray(Object[] array) {
+        this.unsortedArray = array;
+    }
+
+    public Object[] getSortedArray() {
+        return sortedArray;
+    }
+
+    public void setSortedArray(Object[] array) {
+        this.sortedArray = array;
+    }
 }
