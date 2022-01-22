@@ -9,6 +9,7 @@ function InputData() {
     const [sortAttrib, setSortAttrib] = useState("");
     const [array, setArray] = useState([]);
     const [file, setFile] = useState([]);
+    const [isFileJSON, setIsFileJSON] = useState(true);
     const [formData, setFormData] = useState({"dataType":dataType, "arraySize":"", "sortAttrib":sortAttrib})
     const [responseData, setResponseData] = useState("");
 
@@ -30,21 +31,15 @@ function InputData() {
         try {
             const a = JSON.parse(_array);
             if (Array.isArray(a) && validArrayType(a)) {
-                if (dataType === "JSON" || dataType === "File") {
-                    if (validSortAttrib(a, sortAttrib)) {
-                        setArray(a);
-                        setDisableSubmit(false);
-                        setArrayError("");
-                    }
-                    else {
-                        throw Error;
-                    }
-                }
+                setArray(a);
+                setDisableSubmit(false);
+                setArrayError("");
                 
             } else {
+                console.log("Error");
                 throw Error;
-            }  
-            
+            }
+                        
         }
         catch {
             console.log("Cannot parse");
@@ -62,7 +57,16 @@ function InputData() {
                 setFileError("");
             } else {
                 throw Error;
-            }            
+            }
+
+            let flag = true;
+            for (const k of f) {
+                if (!(typeof k === "object")) {
+                    flag = false;
+                    break;
+                }
+            }
+            setIsFileJSON(flag);
         }
         catch {
             console.log("Cannot parse");
@@ -80,18 +84,25 @@ function InputData() {
     }
 
 
-    function validArrayType(array) {
-        if (dataType === "Number") {
+    function validArrayType(array, _dataType=dataType) {
+        if (_dataType === "Number") {
             for (const k of array) {
                 console.log(k);
                 if (!(typeof k === "number")) {
                     return false;
                 }
             }
-        } else if (dataType === "String") {
+        } else if (_dataType === "String") {
             for (const k of array) {
                 console.log(k);
                 if (!(typeof k === "string")) {
+                    return false;
+                }
+            }
+        } else if (_dataType === "JSON") {
+            for (const k of array) {
+                console.log(k);
+                if (!(typeof k === "object")) {
                     return false;
                 }
             }
@@ -108,6 +119,7 @@ function InputData() {
                 return false;
             }
         }
+        setSortAttribError("");
         return true;
     }
   
@@ -133,7 +145,17 @@ function InputData() {
         } else if (dataType !== "Random") {
             formData.array = array;
         }
-        sendData(formData);
+
+        if (formData.sortAttrib !== '') {
+            if (validSortAttrib(formData.array, formData.sortAttrib)) {
+                sendData(formData);
+            }
+            else {
+
+            }
+        } else {
+            sendData(formData);
+        }
     }
 
 
@@ -210,15 +232,15 @@ function InputData() {
     <>
         <div className="inputTable">
             <form onSubmit={(event) => handleForm(event)}>
-                <label htmlFor="array">Wpisz tablicę do posortowania:</label>
-                <span className="error">{arrayError}</span>
-                <input 
-                type="text" 
+                <label htmlFor="array">Wpisz tablicę do posortowania:</label><br/>
+                
+                <textarea
                 className="inputSortData" 
                 placeholder="Tablica do posortowania" 
                 name="array" 
                 id="array" 
-                onChange={(event) => handleInputArrayChange(event)} />
+                onChange={(event) => handleInputArrayChange(event)} /><br/>
+                <span className="error">{arrayError}</span><br/>
                 <input type="submit" id="submit" name="submit" value="Zatwierdź" className="myButton" disabled={disableSubmit}/>
             </form>
         </div>
@@ -228,19 +250,17 @@ function InputData() {
     <>
         <form onSubmit={(event) => handleForm(event)}>
             <div className="inputTable">
-                <label htmlFor="array">Wpisz tablicę do posortowania:</label>
-                <span className="error">{arrayError}</span>
-                <input 
-                type="text" 
+                <label htmlFor="array">Wpisz tablicę do posortowania:</label><br/>
+                <textarea
                 className="inputSortData" 
                 placeholder="Tablica do posortowania" 
                 name="array" 
                 id="array" 
-                onChange={(event) => handleInputArrayChange(event)} />
-            </div>
-            <div className="yourChoice">
+                onChange={(event) => handleInputArrayChange(event)} /><br/>
+                <span className="error">{arrayError}</span><br/>
+            
                 <label htmlFor="sortAttrib">Podaj atrybut, po którym chcesz sortować:</label>
-                <span className="error">{sortAttribError}</span>
+                
                 <input type="text" 
                     id="sortAttrib"
                     name="sortAttrib"
@@ -248,38 +268,47 @@ function InputData() {
                     onChange={(event) => handleFormData(event)} 
                     placeholder="Podaj atrybut sortujący"
                     className="myButton"
-                    required/>
+                    required/><br/>
+                <span className="error">{sortAttribError}</span><br/>
+
                 <input type="submit" id="submit" name="submit" value="Zatwierdź" className="myButton" disabled={disableSubmit}/>
-            </div>
+            </div>           
         </form>       
     </>} 
 
     {dataType === "File" &&
     <>
-        <div className="yourSpaces">
+        <div className="inputTable">
             <form onSubmit={(event) => handleForm(event)}>
-                <span className="error">{fileError}</span>
-                <input type="file" accept=".json" name="array" onChange={(event) => showFile(event)}/>
+                <input type="file" accept=".json" name="array" onChange={(event) => showFile(event)}/><br/>
+                <span className="error">{fileError}</span><br/>
                 {file !== [] && fileError === "" && 
                 <>
+                <div className="showArray">
                 <ol>
                     {file.map((element, index) => {
                     return (<li key={index}>{JSON.stringify(element)}</li>);
                     })}
                 </ol>
+                </div>
                 </>
                 }
 
-                <label htmlFor="sortAttrib">Podaj atrybut, po którym chcesz sortować:</label>
-                <span className="error">{sortAttribError}</span>
+                {isFileJSON && 
+                <>
+                    <label htmlFor="sortAttrib">Podaj atrybut, po którym chcesz sortować:</label>
                     <input type="text" 
                         id="sortAttrib"
                         name="sortAttrib"
                         value={formData.sortAttrib}
-                        onChange={(event) => handleSortAttrib(event)} 
+                        onChange={(event) => handleFormData(event)} 
                         placeholder="Podaj atrybut sortujący"
                         className="myButton"
-                        required/>
+                        required/><br/>
+                    <span className="error">{sortAttribError}</span><br/>
+                </>}
+
+                
                 <input type="submit" id="submit" name="submit" value="Zatwierdź" className="myButton" disabled={disableSubmit}/>
             </form>
         </div>
@@ -294,11 +323,18 @@ function InputData() {
     <div className="center"><h2>Twoja tablica:</h2></div>
     <div className="showArray">
         <ol>
-        {responseData.array.map((item) => {
-            return (<li key={item}>{JSON.stringify(item)}</li>);
+        {responseData.array.map((value, index) => {
+            return (<li key={index}>{JSON.stringify(value)}</li>);
         })}
         </ol>
     </div>
+    <div className="center">
+        {responseData.sortAttrib !== '' && 
+        <>
+            Sortujesz po atrybucie: {responseData.sortAttrib}
+        </>}
+    </div>
+
     <div className="buttons">
         <button onClick={() => reloadPage()} className="myButton" name="reload">Zacznij od nowa</button>
         <button onClick={() => goToSortTypePage()} className="myButton" name="reload">Przejdź dalej</button>
