@@ -19,7 +19,7 @@ public class SelectionSort extends SortingMadness {
      */
     @Override
     public Object[] sort(boolean reverse) {
-        if(reverse == false) return sort_normal();
+        if(!reverse) return sort_normal();
         return sort_reverse();
     }
     /**

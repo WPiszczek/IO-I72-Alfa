@@ -29,31 +29,34 @@ public class SortingMadnessController {
         logger.debug("SortingMadnessController Constructor");
     }
 
-    @CrossOrigin()
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping({"/", "/index"})
     public String index() {
         logger.debug("GET /index");
         return "index";
     }
 
-    @CrossOrigin()
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/inputData/Random")
     public LinkedHashMap<String, Object> randomArray(@RequestBody LinkedHashMap<String, Object> body) {
         logger.debug("POST /inputData/Random");
         return service.generateRandomArray(body);
     }
 
-    @CrossOrigin()
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/inputData/{dataType}")
     public LinkedHashMap<String, Object> postInputData(@PathVariable String dataType,
                                                        @RequestBody LinkedHashMap<String, Object> body) {
         logger.debug("POST /inputData/" + dataType);
-        service.handleInput(body);
+        service.handleInput(body, dataType);
         return body;
     }
 
 
-    @CrossOrigin()
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/sortType")
     public LinkedHashMap<String, Object> getSortType() {
         logger.debug("GET /sortType");
@@ -65,7 +68,7 @@ public class SortingMadnessController {
     }
 
 
-    @CrossOrigin()
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/sortType")
     public LinkedHashMap<String, Object> postSortType(@RequestBody LinkedHashMap<String, Object> body) {
         logger.debug("POST /sortType");
@@ -74,13 +77,14 @@ public class SortingMadnessController {
     }
 
 
-    @CrossOrigin()
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/result/{sortType}")
     public LinkedHashMap<String, Object>
     result(@PathVariable("sortType") String sortType) {
         logger.debug(String.format("GET result/%s", sortType));
 
-        response = service.getResult();
+        response = service.getResult(sortType);
+        System.out.println(response);
         return response;
     }
 

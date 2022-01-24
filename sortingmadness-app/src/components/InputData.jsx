@@ -3,13 +3,11 @@ import { useState } from 'react';
 
 function InputData() {
 
-    // TODO SortAttrib
-
     const [dataType, setDataType] = useState("");
     const [sortAttrib, setSortAttrib] = useState("");
     const [array, setArray] = useState([]);
     const [file, setFile] = useState([]);
-    const [isFileJSON, setIsFileJSON] = useState(true);
+    const [fileDataType, setFileDataType] = useState("");
     const [formData, setFormData] = useState({"dataType":dataType, "arraySize":"", "sortAttrib":sortAttrib})
     const [responseData, setResponseData] = useState("");
 
@@ -17,15 +15,13 @@ function InputData() {
     const [fileError, setFileError] = useState("");
     const [sortAttribError, setSortAttribError] = useState("");
     const [disableSubmit, setDisableSubmit] = useState(false);
+
     
 
     function handleDataType(_dataType) {
         setDataType(_dataType);
     }
 
-    function handleSortAttrib(_sortAttrib) {
-        setSortAttrib(_sortAttrib);
-    }
 
     function handleArray(_array) {
         try {
@@ -55,18 +51,26 @@ function InputData() {
                 setFile(f);
                 setDisableSubmit(false);
                 setFileError("");
-            } else {
+            } 
+            else {
                 throw Error;
             }
 
-            let flag = true;
-            for (const k of f) {
-                if (!(typeof k === "object")) {
-                    flag = false;
-                    break;
-                }
+            if (validArrayType(f, "Number")) {
+                console.log("Number 1234");
+                setFileDataType("Number");
+                return;
             }
-            setIsFileJSON(flag);
+            else if (validArrayType(f, "String")) {
+                setFileDataType("String");
+                console.log("String 1234");
+                return;
+            } 
+            else if (validArrayType(f, "JSON")) {
+                setFileDataType("JSON");
+                console.log("JSON 1234");
+                return;
+            }
         }
         catch {
             console.log("Cannot parse");
@@ -126,9 +130,14 @@ function InputData() {
 
     async function sendData(data) {
         try {
-            console.log(data);
-            console.log(dataType);
-            const response = await axios.post(`http://localhost:8080/inputData/${dataType}`, data);
+            let currentDataType;
+            if (dataType === "File") {
+                currentDataType = fileDataType;
+            } else {
+                currentDataType = dataType;
+            }
+            const response = await axios.post(`http://localhost:8080/inputData/${currentDataType}`, data);
+            console.log("Response Data");
             console.log(response.data);
             handleResponseData(response.data);
         } catch (error) {
@@ -142,6 +151,9 @@ function InputData() {
         console.log(formData);
         if (dataType === "File") {
             formData.array = file;
+            formData.dataType = fileDataType;
+            console.log(formData.dataType);
+            console.log("SIEMANDERO");
         } else if (dataType !== "Random") {
             formData.array = array;
         }
@@ -177,12 +189,12 @@ function InputData() {
         reader.readAsText(e.target.files[0]);
     }
 
-    function reloadPage() {
+    function reload() {
         window.location.href = '/';
     }
 
     function goToSortTypePage() {
-        ;
+        window.location.href = '/sortType';
     }
 
 
@@ -285,16 +297,18 @@ function InputData() {
                 {file !== [] && fileError === "" && 
                 <>
                 <div className="showArray">
-                <ol>
-                    {file.map((element, index) => {
-                    return (<li key={index}>{JSON.stringify(element)}</li>);
-                    })}
-                </ol>
+                    <div className="center">
+                    <ul>
+                        {file.map((element, index) => {
+                        return (<li key={index}>{JSON.stringify(element)}</li>);
+                        })}
+                    </ul>
+                    </div>
                 </div>
                 </>
                 }
 
-                {isFileJSON && 
+                {fileDataType === "JSON" && 
                 <>
                     <label htmlFor="sortAttrib">Podaj atrybut, po którym chcesz sortować:</label>
                     <input type="text" 
@@ -320,25 +334,27 @@ function InputData() {
 
     {responseData !== "" && 
     <>
-    <div className="center"><h2>Twoja tablica:</h2></div>
-    <div className="showArray">
-        <ol>
-        {responseData.array.map((value, index) => {
-            return (<li key={index}>{JSON.stringify(value)}</li>);
-        })}
-        </ol>
-    </div>
-    <div className="center">
-        {responseData.sortAttrib !== '' && 
-        <>
-            Sortujesz po atrybucie: {responseData.sortAttrib}
-        </>}
-    </div>
+        <div className="center"><h2>Twoja tablica:</h2></div>
+        <div className="showArray">
+            <div className="center">
+                <ul>
+                {responseData.array.map((value, index) => {
+                    return (<li key={index}>{JSON.stringify(value)}</li>);
+                })}
+                </ul>
+            </div>
+        </div>
+        <div className="center">
+            {responseData.hasOwnProperty("sortAttrib") && responseData.sortAttrib !== '' && 
+            <>
+                Sortujesz po atrybucie: {responseData.sortAttrib}
+            </>}
+        </div>
 
-    <div className="buttons">
-        <button onClick={() => reloadPage()} className="myButton" name="reload">Zacznij od nowa</button>
-        <button onClick={() => goToSortTypePage()} className="myButton" name="reload">Przejdź dalej</button>
-    </div>
+        <div className="buttons">
+            <button onClick={() => reload()} className="myButton" name="reload">Zacznij od nowa</button>
+            <button onClick={() => goToSortTypePage()} className="myButton" name="forward">Przejdź dalej</button>
+        </div>
     </>}
     
     </>

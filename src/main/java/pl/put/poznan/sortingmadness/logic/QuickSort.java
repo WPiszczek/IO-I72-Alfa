@@ -18,28 +18,30 @@ public class QuickSort extends SortingMadness {
      */
     @Override
     public Object[] sort(boolean reverse) {
-        if(!reverse) quickSort(this.array, 0, array.length - 1);
-        else quickSort_reverse(this.array, 0, array.length - 1);
+        Object[] array = this.array.clone();
+        if(!reverse) quickSort(array, 0, array.length - 1);
+        else quickSort_reverse(array, 0, array.length - 1);
         return array;
     }
     /**
-     * Helper procedure for sorting method used in not reversed sorting
+     * Helper procedure for sorting method used in ascending sorting
      * @param array - array passed to be sorted
      * @param begin - index of first element to be sorted
      * @param end - index of last element to be sorted
      */
     public void quickSort(Object[] array, int begin, int end) {
         if (end <= begin) return;
-        int pivot = partition(begin, end);
+        int pivot = partition(array, begin, end);
         quickSort(array, begin, pivot-1);
         quickSort(array, pivot+1, end);
     }
     /**
-     * Helper procedure for sorting method used in not reversed sorting
+     * Helper procedure for sorting method used in ascending sorting
+     * @param array - array passed to be sorted
      * @param begin - index of first element to compare
      * @param end - index of last element to compare
      */
-    int partition(int begin, int end) {
+    int partition(Object[] array, int begin, int end) {
         int pivot = end;
 
         int counter = begin;
@@ -52,7 +54,7 @@ public class QuickSort extends SortingMadness {
                 counter++;
             }
         }
-        Object temp = this.array[pivot];
+        Object temp = array[pivot];
         array[pivot] = array[counter];
         array[counter] = temp;
 
@@ -68,16 +70,17 @@ public class QuickSort extends SortingMadness {
      */
     public void quickSort_reverse(Object[] array, int begin, int end) {
         if (end <= begin) return;
-        int pivot = partition_reverse(begin, end);
+        int pivot = partition_reverse(array, begin, end);
         quickSort_reverse(array, begin, pivot-1);
         quickSort_reverse(array, pivot+1, end);
     }
     /**
      * Helper procedure for reversed sorting method
+     * @param array - array passed to be sorted
      * @param begin - index of first element to compare
      * @param end - index of last element to compare
      */
-    int partition_reverse(int begin, int end) {
+    int partition_reverse(Object[] array, int begin, int end) {
         int pivot = end;
 
         int counter = begin;
@@ -90,7 +93,7 @@ public class QuickSort extends SortingMadness {
                 counter++;
             }
         }
-        Object temp = this.array[pivot];
+        Object temp = array[pivot];
         array[pivot] = array[counter];
         array[counter] = temp;
 

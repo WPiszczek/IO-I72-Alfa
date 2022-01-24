@@ -84,14 +84,10 @@ public class CustomObject implements Comparable {
 
     /**
      * Function for getting info about object
-     * @return
+     * @return String
      */
     @Override
     public String toString() {
-        return "CustomObject{" +
-                "JSONString='" + JSONString + '\'' +
-                ", sortAttrib='" + sortAttrib + '\'' +
-                ", sortAttribValue=" + sortAttribValue +
-                '}';
+        return JSONString;
     }
 }

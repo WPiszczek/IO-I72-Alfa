@@ -5,13 +5,14 @@ import SortType from './components/SortType';
 
 
 function App() {
+
   return (
     <>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<InputData />} exact/>
         <Route path='/sortType' element={<SortType />} exact/>
-        <Route path='/result' element={<Result />} exact/>
+        <Route path='/result/:sortType' element={<Result />} exact/>
       </Routes>
     </BrowserRouter>
     </>

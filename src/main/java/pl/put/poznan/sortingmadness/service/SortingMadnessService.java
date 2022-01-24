@@ -17,8 +17,7 @@ public class SortingMadnessService {
     private Object[] sortedArray;
 
 
-    public void handleInput(LinkedHashMap<String, Object> input) {
-        String dataType = (String) input.get("dataType");
+    public void handleInput(LinkedHashMap<String, Object> input, String dataType) {
 
         Object[] array;
         if (input.get("array") != null) {
@@ -28,7 +27,7 @@ public class SortingMadnessService {
         else {
             array = new Object[]{};
         }
-
+        System.out.println(dataType);
         switch (dataType) {
             case "Number":
                 array = convertArrayToDouble(array);
@@ -38,7 +37,6 @@ public class SortingMadnessService {
                 array = getRandomArray(size);
                 break;
             case "JSON":
-            case "File":
                 String sortAttrib = (String) input.get("sortAttrib");
                 array = convertArrayToJSON(array, sortAttrib);
                 break;
@@ -65,24 +63,24 @@ public class SortingMadnessService {
         setSortedArray(sortedArray);
     }
 
+    public LinkedHashMap<String, Object> getResult(String sortType) {
+        Long time = sorter.getTime();
+
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        result.put("sortType", sortType);
+        result.put("unsortedArray", getJSONStringArray(getUnsortedArray()));
+        result.put("sortedArray", getJSONStringArray(getSortedArray()));
+        result.put("time", time);
+
+        return result;
+    }
 
     public LinkedHashMap<String, Object> generateRandomArray(LinkedHashMap<String, Object> input) {
-        int arraySize = Integer.parseInt((String) input.get("arraySize"));
+        int arraySize = Integer.parseInt(String.valueOf(input.get("arraySize")));
         Integer[] array = getRandomArray(arraySize);
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         setUnsortedArray(array);
         result.put("array", array);
-        return result;
-    }
-
-
-    public LinkedHashMap<String, Object> getResult() {
-        Long time = sorter.getTime();
-
-        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        result.put("sortedArray", getSortedArray());
-        result.put("time", time);
-
         return result;
     }
 
@@ -108,20 +106,18 @@ public class SortingMadnessService {
 
         for (Object obj : array) {
             LinkedHashMap map = (LinkedHashMap) obj;
-//            System.out.println(obj);
-//            System.out.println(obj.getClass());
+
             CustomObject cusObj = new CustomObject();
 
             Object sortAttribValue = map.get(sortAttrib);
-            System.out.println(sortAttribValue);
 
             String jsonString = new JSONObject(map).toString();
+
             cusObj.setJSONString(jsonString);
             cusObj.setSortAttrib(sortAttrib);
             cusObj.setSortAttribValue((Comparable) sortAttribValue);
             arr.add(cusObj);
         }
-
         return arr.toArray(new CustomObject[]{});
     }
 
@@ -152,6 +148,14 @@ public class SortingMadnessService {
                 break;
             }
         }
+    }
+
+    public String[] getJSONStringArray(Object[] array) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (Object element : array) {
+            arrayList.add(element.toString());
+        }
+        return arrayList.toArray(new String[]{});
     }
 
     public SortingMadness getSorter() {
