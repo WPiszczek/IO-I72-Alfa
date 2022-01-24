@@ -23,6 +23,7 @@ public class ShellSort extends SortingMadness {
         else return sort_normal();
 
     }
+
     /**
      * Helper procedure for sorting method used in not reversed sorting
      * @return array of type Object
@@ -45,6 +46,7 @@ public class ShellSort extends SortingMadness {
         }
         return array;
     }
+
     /**
      * Helper procedure for sorting method used in reversed sorting
      * @return array of type Object

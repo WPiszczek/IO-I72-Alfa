@@ -1,4 +1,4 @@
 /**
-* Package including class that runs the project
+* Package including application class
  **/
 package pl.put.poznan.sortingmadness.app;

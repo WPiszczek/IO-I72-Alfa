@@ -1,9 +1,7 @@
 package pl.put.poznan.sortingmadness.logic;
 
-import java.util.Arrays.*;
-
 /**
- * Sorting Madness Class
+ * SortingMadness Class
  */
 public abstract class SortingMadness {
 

@@ -1,4 +1,4 @@
 /**
- * Package including SortingMadnessController class which serves JSON
+ * Package including Rest Controller for Sorting Madness
  */
 package pl.put.poznan.sortingmadness.rest;

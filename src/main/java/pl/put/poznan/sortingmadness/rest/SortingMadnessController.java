@@ -3,7 +3,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 import pl.put.poznan.sortingmadness.service.SortingMadnessService;
 
 import java.util.*;
@@ -19,17 +18,31 @@ public class SortingMadnessController {
      * Logger field
      */
     private static final Logger logger = LoggerFactory.getLogger(SortingMadnessController.class);
+
+    /**
+     * Service class
+     */
     private final SortingMadnessService service;
+
+    /**
+     * Response returned by controller
+     */
     LinkedHashMap<String, Object> response;
 
-
+    /**
+     * Constructor for Controller
+     * @param service service class
+     */
     @Autowired
     public SortingMadnessController(SortingMadnessService service) {
         this.service = service;
         logger.debug("SortingMadnessController Constructor");
     }
 
-
+    /**
+     * Renders default response from request
+     * @return String index
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping({"/", "/index"})
     public String index() {
@@ -37,7 +50,11 @@ public class SortingMadnessController {
         return "index";
     }
 
-
+    /**
+     * Renders random input data from request
+     * @param body request body
+     * @return generated random array of integers
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/inputData/Random")
     public LinkedHashMap<String, Object> randomArray(@RequestBody LinkedHashMap<String, Object> body) {
@@ -45,7 +62,12 @@ public class SortingMadnessController {
         return service.generateRandomArray(body);
     }
 
-
+    /**
+     * Processes input data from request
+     * @param dataType type of requested data, might be Number, String or JSON
+     * @param body request body
+     * @return request body
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/inputData/{dataType}")
     public LinkedHashMap<String, Object> postInputData(@PathVariable String dataType,
@@ -55,7 +77,10 @@ public class SortingMadnessController {
         return body;
     }
 
-
+    /**
+     * returns unsorted array from api to client
+     * @return unsorted array
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/sortType")
     public LinkedHashMap<String, Object> getSortType() {
@@ -67,7 +92,11 @@ public class SortingMadnessController {
         return response;
     }
 
-
+    /**
+     * gets sort type from request
+     * @param body request body
+     * @return request body
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/sortType")
     public LinkedHashMap<String, Object> postSortType(@RequestBody LinkedHashMap<String, Object> body) {
@@ -76,7 +105,11 @@ public class SortingMadnessController {
         return body;
     }
 
-
+    /**
+     * returns sorting result from api to client
+     * @param sortType sort type
+     * @return sorted and unsorted array, sorting time
+     */
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/result/{sortType}")
     public LinkedHashMap<String, Object>
