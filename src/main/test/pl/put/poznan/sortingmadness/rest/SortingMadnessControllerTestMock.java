@@ -15,55 +15,31 @@ import pl.put.poznan.sortingmadness.logic.SortingMadness;
 import pl.put.poznan.sortingmadness.service.SortingMadnessService;
 
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SortingMadnessControllerTestMock {
 
     SortingMadnessController mockObject;
-    SortingMadnessService service;
+    SortingMadnessService mockService;
 
     @BeforeEach
     void setUp() {
         mockObject = mock(SortingMadnessController.class);
+        mockService = mock(SortingMadnessService.class);
     }
 
     @AfterEach
     void tearDown() {
         mockObject = null;
-        service = null;
+        mockService = null;
     }
 
     @Test
     void index() {
         when(mockObject.index()).thenReturn("index");
+        assertEquals("index", mockObject.index());
     }
 
-    @Test
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/inputData/Random")
-    void randomArray() {
-        LinkedHashMap<String, Object> body = new LinkedHashMap<>();
-        when(mockObject.randomArray(body)).thenThrow(new NullPointerException());
-    }
-
-    @Test
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/inputData/{dataType}")
-    void postInputData() {
-        LinkedHashMap<String, Object> body = new LinkedHashMap<>();
-//        when(mockObject.postInputData("Number", body)).thenReturn()
-    }
-
-    @Test
-    void getSortType() {
-    }
-
-    @Test
-    void postSortType() {
-    }
-
-    @Test
-    void result() {
-    }
 }
