@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SortingMadnessControllerTestMock {
+class SortingMadnessControllerTest {
 
     SortingMadnessController mockObject;
     SortingMadnessService mockService;

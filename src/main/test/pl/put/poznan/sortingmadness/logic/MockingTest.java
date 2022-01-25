@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;import static org.mockito.Mockito.*;
 
-class SortingTest {
+class MockingTest {
 
     SortingMadnessService mockService;
 
